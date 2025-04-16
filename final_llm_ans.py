@@ -1,27 +1,30 @@
 import requests
 import json
-from dotenv import load_dotenv
 import os
 import argparse
+from dotenv import load_dotenv
 
+# Load environment variables (optional, fallback to hardcoded key)
 load_dotenv()
-api_key = "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"
+api_key = os.getenv("GROQ_API_KEY", "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")
 
+# CLI argument to pass query
 parser = argparse.ArgumentParser(description="Ask a legal question to the Audio-RAG system.")
 parser.add_argument("query", type=str, help="The question you want to ask")
 args = parser.parse_args()
 query = args.query
 
+# Read the retrieved context
 with open("retrieved_chunks.txt", "r", encoding="utf-8") as f:
     context = f.read()
 
-model = "openrouter/quasar-alpha"
+# Set a valid Groq-supported model
+model = "llama3-8b-8192"  # or "llama3-70b-8192" for more powerful response
 
+# Prepare headers and payload
 headers = {
     "Authorization": f"Bearer {api_key}",
     "Content-Type": "application/json",
-    "HTTP-Referer": "http://localhost",
-    "X-Title": "Court-Transcript-RAG",
 }
 
 payload = {
@@ -29,18 +32,15 @@ payload = {
     "messages": [
         {
             "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": f"Context:\n{context}\n\nQuestion: {query}"
-                }
-            ]
+            "content": f"Context:\n{context}\n\nQuestion: {query}"
         }
     ]
 }
 
-response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, data=json.dumps(payload))
+# Make the POST request to Groq's OpenAI-compatible endpoint
+response = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, data=json.dumps(payload))
 
+# Handle the response
 if response.status_code == 200:
     try:
         answer = response.json()["choices"][0]["message"]["content"]

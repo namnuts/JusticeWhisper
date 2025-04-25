@@ -62,9 +62,10 @@ cd JusticeWhisper
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the full pipeline
-python run_pipeline.py
+# Run the full pipeline and Backend
+uvicorn backend:app -reload
 
-# Or interact via backend
-python backend.py
+# to run in port
+cd client
+npm run dev
 

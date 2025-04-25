@@ -1,4 +1,4 @@
-#⚖️ JusticeWhisper: Audio-RAG for Legal Court Hearings
+⚖️ JusticeWhisper: Audio-RAG for Legal Court Hearings
 JusticeWhisper is a domain-specific Audio-based Retrieval-Augmented Generation (RAG) system built to process, transcribe, analyze, and respond to legal court hearing audio files—delivering answers in both text and audio formats.
 
 🚀 From court hearing audio → intelligent legal insight → audio/text response!

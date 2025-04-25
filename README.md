@@ -56,7 +56,7 @@ JusticeWhisper/
 
 ⚙️ Getting Started
 # Clone the repo
-git clone https://github.com/your-username/JusticeWhisper.git
+git clone https://github.com/namnuts/JusticeWhisper.git
 cd JusticeWhisper
 
 # Install dependencies
